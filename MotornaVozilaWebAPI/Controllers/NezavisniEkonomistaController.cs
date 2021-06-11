@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MotornaVozilaLibrary;
+using MotornaVozilaLibrary.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,40 @@ namespace MotornaVozilaWebAPI.Controllers
             try
             {
                 return new JsonResult(DataProvider.VratiNezavisneEkonomiste());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        [Route("DodajNEkonomistu")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddNEkonomistu([FromBody] NezavisniEkonomistaView n)
+        {
+            try
+            {
+                DataProvider.DodajNEkonomistu(n);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        [Route("IzbrisiNEkonomistu/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteNEkonomistu(int id)
+        {
+            try
+            {
+                DataProvider.IzbrisiNEkonomistu(id);
+                return Ok();
             }
             catch (Exception ex)
             {
