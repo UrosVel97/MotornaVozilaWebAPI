@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotornaVozilaWebAPI", "MotornaVozilaWebAPI.csproj", "{3B7B0B05-389A-40B6-8669-061189245868}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MotornaVozilaLibrary", "..\MotornaVozilaLibrary\MotornaVozilaLibrary.csproj", "{B59AA787-40E6-4EAC-ABF0-299466443D64}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3B7B0B05-389A-40B6-8669-061189245868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B7B0B05-389A-40B6-8669-061189245868}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B7B0B05-389A-40B6-8669-061189245868}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B7B0B05-389A-40B6-8669-061189245868}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B59AA787-40E6-4EAC-ABF0-299466443D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B59AA787-40E6-4EAC-ABF0-299466443D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B59AA787-40E6-4EAC-ABF0-299466443D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B59AA787-40E6-4EAC-ABF0-299466443D64}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EF915125-81C0-45F3-96C8-B953680814FE}
+	EndGlobalSection
+EndGlobal
