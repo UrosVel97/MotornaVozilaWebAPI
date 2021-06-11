@@ -1,0 +1,8 @@
+C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.AssemblyInfoInputs.cache
+C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.AssemblyInfo.cs
+C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\bin\Debug\netcoreapp3.1\MotornaVozilaLibrary.deps.json
+C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\bin\Debug\netcoreapp3.1\MotornaVozilaLibrary.dll
+C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\bin\Debug\netcoreapp3.1\MotornaVozilaLibrary.pdb
+C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.dll
+C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.pdb
