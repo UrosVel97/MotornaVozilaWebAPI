@@ -79,8 +79,8 @@ namespace MotornaVozilaWebAPI.Controllers
 
                 /*
                  * 
-                 * asf
-                 * gasg
+                 * asfsgasgasg
+                 * gasgfsagasg
                  * gas
                  */
             }
@@ -90,8 +90,8 @@ namespace MotornaVozilaWebAPI.Controllers
             }
             /*
              * 
-             * fasf
-             * 
+             * fasfgasgasg
+             * asgsagasg
              * 
              */
         }
