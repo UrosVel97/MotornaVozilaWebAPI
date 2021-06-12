@@ -29,6 +29,7 @@ namespace MotornaVozilaWebAPI.Controllers
             }
         }
 
+<<<<<<< HEAD
         [HttpPut]
         [Route("PromeniNezavisnogEkonomistu")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,6 +39,34 @@ namespace MotornaVozilaWebAPI.Controllers
             try
             {
                 DataProvider.AzurirajNezavisneEkonomiste(nezavisni);
+=======
+        [HttpPost]
+        [Route("DodajNEkonomistu")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddNEkonomistu([FromBody] NezavisniEkonomistaView n)
+        {
+            try
+            {
+                DataProvider.DodajNEkonomistu(n);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        [Route("IzbrisiNEkonomistu/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteNEkonomistu(int id)
+        {
+            try
+            {
+                DataProvider.IzbrisiNEkonomistu(id);
+>>>>>>> 2c805281749b049fc6a4c64ac71c51763fa3ed0a
                 return Ok();
             }
             catch (Exception ex)
