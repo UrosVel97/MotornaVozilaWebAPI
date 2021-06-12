@@ -37,5 +37,28 @@ namespace MotornaVozilaLibrary
             }
             return null;
         }
+
+        public static NezavisniEkonomistaView AzurirajNezavisneEkonomiste(NezavisniEkonomistaView nezavisni)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                NezavisniEkonomista ne = s.Load<NezavisniEkonomista>(nezavisni.Jmbg);
+                ne.Ime = nezavisni.Ime;
+                ne.Prezime = nezavisni.Prezime;
+                ne.Adresa = nezavisni.Adresa;
+
+                s.Update(ne);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return nezavisni;
+        }
     }
 }

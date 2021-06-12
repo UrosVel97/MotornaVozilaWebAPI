@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MotornaVozilaLibrary;
+using MotornaVozilaLibrary.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,23 @@ namespace MotornaVozilaWebAPI.Controllers
             try
             {
                 return new JsonResult(DataProvider.VratiNezavisneEkonomiste());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPut]
+        [Route("PromeniNezavisnogEkonomistu")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult ModifyNezavisniEkonomista([FromBody] NezavisniEkonomistaView nezavisni)
+        {
+            try
+            {
+                DataProvider.AzurirajNezavisneEkonomiste(nezavisni);
+                return Ok();
             }
             catch (Exception ex)
             {
