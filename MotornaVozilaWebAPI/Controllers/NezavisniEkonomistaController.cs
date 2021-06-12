@@ -98,6 +98,13 @@ namespace MotornaVozilaWebAPI.Controllers
                  */
                 DataProvider.AzurirajNezavisneEkonomiste(nezavisni);
                 return Ok();
+
+                /*
+                 * 
+                 * asf
+                 * gasg
+                 * gas
+                 */
             }
             catch (Exception ex)
             {
