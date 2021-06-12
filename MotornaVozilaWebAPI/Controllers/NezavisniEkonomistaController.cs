@@ -77,32 +77,12 @@ namespace MotornaVozilaWebAPI.Controllers
                 DataProvider.AzurirajNezavisneEkonomiste(nezavisni);
                 return Ok();
 
-                /*
-                 * 
-                 * 
-                 * 
-                 * 
-                 * adfadf asdasf asf
-                 * asf
-                 * fas 
-                 * 
-                 * asf
-                 * gasg
-                 * asfsgasgasg
-                 * gasgfsagasg
-                 * gas
-                 */
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.ToString());
             }
-            /*
-             * 
-             * fasf
-             * 
-             * 
-             */
+
         }
     }
 }
