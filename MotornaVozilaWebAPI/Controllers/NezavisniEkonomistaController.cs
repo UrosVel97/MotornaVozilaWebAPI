@@ -87,6 +87,15 @@ namespace MotornaVozilaWebAPI.Controllers
         {
             try
             {
+
+
+                /*
+                 * 
+                 * 
+                 * 
+                 * 
+                 * 
+                 */
                 DataProvider.AzurirajNezavisneEkonomiste(nezavisni);
                 return Ok();
             }
