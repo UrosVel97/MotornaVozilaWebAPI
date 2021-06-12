@@ -1,12 +1,3 @@
-C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.AssemblyInfoInputs.cache
-C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.AssemblyInfo.cs
-C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.csproj.CoreCompileInputs.cache
-C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\bin\Debug\netcoreapp3.1\MotornaVozilaLibrary.deps.json
-C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\bin\Debug\netcoreapp3.1\MotornaVozilaLibrary.dll
-C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\bin\Debug\netcoreapp3.1\MotornaVozilaLibrary.pdb
-C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.dll
-C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.pdb
-<<<<<<< HEAD
 C:\Users\dimci\Desktop\WebApi\MotornaVozilaWebAPI\MotornaVozilaLibrary\bin\Debug\netcoreapp3.1\MotornaVozilaLibrary.deps.json
 C:\Users\dimci\Desktop\WebApi\MotornaVozilaWebAPI\MotornaVozilaLibrary\bin\Debug\netcoreapp3.1\MotornaVozilaLibrary.dll
 C:\Users\dimci\Desktop\WebApi\MotornaVozilaWebAPI\MotornaVozilaLibrary\bin\Debug\netcoreapp3.1\MotornaVozilaLibrary.pdb
@@ -16,6 +7,3 @@ C:\Users\dimci\Desktop\WebApi\MotornaVozilaWebAPI\MotornaVozilaLibrary\obj\Debug
 C:\Users\dimci\Desktop\WebApi\MotornaVozilaWebAPI\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.csproj.CoreCompileInputs.cache
 C:\Users\dimci\Desktop\WebApi\MotornaVozilaWebAPI\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.dll
 C:\Users\dimci\Desktop\WebApi\MotornaVozilaWebAPI\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.pdb
-=======
-C:\Users\Uros\Desktop\MotornaVozilaWebApi_Reporzitorijum\MotornaVozilaLibrary\obj\Debug\netcoreapp3.1\MotornaVozilaLibrary.csprojAssemblyReference.cache
->>>>>>> 2c805281749b049fc6a4c64ac71c51763fa3ed0a

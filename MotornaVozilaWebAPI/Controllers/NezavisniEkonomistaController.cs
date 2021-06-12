@@ -64,5 +64,22 @@ namespace MotornaVozilaWebAPI.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [HttpPut]
+        [Route("PromeniNezavisnogEkonomistu")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AzurirajNezavisneEkonomiste([FromBody] NezavisniEkonomistaView nezavisni)
+        {
+            try
+            {
+                DataProvider.AzurirajNezavisneEkonomiste(nezavisni);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }

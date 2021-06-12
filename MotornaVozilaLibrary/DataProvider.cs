@@ -122,7 +122,7 @@ namespace MotornaVozilaLibrary
             }
         }
 
-        public static NezavisniEkonomistaView AzurirajNezavisneEkonomiste(NezavisniEkonomistaView nezavisni)
+        public static void AzurirajNezavisneEkonomiste(NezavisniEkonomistaView nezavisni)
         {
             try
             {
@@ -142,7 +142,6 @@ namespace MotornaVozilaLibrary
                 throw;
             }
 
-            return nezavisni;
         }
     }
 }
