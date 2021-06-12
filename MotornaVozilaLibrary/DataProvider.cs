@@ -11,6 +11,8 @@ namespace MotornaVozilaLibrary
 {
     public class DataProvider
     {
+
+        #region NezavisniEkonomista
         public static List<NezavisniEkonomistaView> VratiNezavisneEkonomiste()
         {
             try
@@ -37,6 +39,8 @@ namespace MotornaVozilaLibrary
             }
 
         }
+
+       
 
         public static void DodajNEkonomistu(NezavisniEkonomistaView n)
         {
@@ -143,5 +147,89 @@ namespace MotornaVozilaLibrary
             }
 
         }
+        #endregion
+
+
+        public static void DodajRadnikaTehnickeStruke(RadnikTehnickeStrukeView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                RadnikTehnickeStruke rts = new RadnikTehnickeStruke()
+                {
+                    Jmbg = r.Jmbg,
+                    Ime = r.Ime,
+                    Prezime = r.Prezime,
+                    GodineRadnogStaza = r.GodineRadnogStaza,
+                    DatumRodjena = r.DatumRodjenja,
+                    DatumZaposlenja = r.DatumZaposlenja,
+                    FZaposleniZaStalno = r.FZaposlenZaStalno,
+                    FZaposleniPoUgovoru = r.FZaposlenPoUgovoru,
+                    Plata = r.Plata,
+                    DatumIstekaUgovora = r.DatumIstekaUgovora,
+                    StrucnaSprema = r.StrucnaSprema
+
+                };
+
+                s.Save(rts);
+                s.Flush();
+
+                foreach (string spec in r.Specijalnosti)
+                {
+                    Specijalnost specijalnost = new Specijalnost()
+                    {
+                        SpecijalnostRadnika = spec,
+                        RadnikTehnickeStruke = rts
+                    };
+
+                    rts.Specijalnosti.Add(specijalnost);
+                    s.Save(specijalnost);
+                    s.Save(rts);
+                    s.Flush();
+                }
+
+
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static void DodajRadnikaEkonomskeStruke(RadnikEkonomskeStrukeView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                RadnikEkonomskeStruke res = new RadnikEkonomskeStruke()
+                {
+                    Jmbg = r.Jmbg,
+                    Ime = r.Ime,
+                    Prezime = r.Prezime,
+                    GodineRadnogStaza = r.GodineRadnogStaza,
+                    DatumRodjena = r.DatumRodjenja,
+                    DatumZaposlenja = r.DatumZaposlenja,
+                    FZaposleniZaStalno = r.FZaposlenZaStalno,
+                    FZaposleniPoUgovoru = r.FZaposlenPoUgovoru,
+                    Plata = r.Plata,
+                    DatumIstekaUgovora = r.DatumIstekaUgovora,
+                    StrucnaSprema = r.StrucnaSprema
+
+                };
+
+                s.Save(res);
+                s.Flush();
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+
     }
 }
