@@ -64,6 +64,20 @@ namespace MotornaVozilaWebAPI.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        /*Ovo je komentar 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         */
+
+
+
 
         [HttpPut]
         [Route("PromeniNezavisnogEkonomistu")]
