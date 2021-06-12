@@ -74,14 +74,6 @@ namespace MotornaVozilaWebAPI.Controllers
             try
             {
 
-
-                /*
-                 * 
-                 * 
-                 * 
-                 * 
-                 * 
-                 */
                 DataProvider.AzurirajNezavisneEkonomiste(nezavisni);
                 return Ok();
             }
@@ -89,7 +81,12 @@ namespace MotornaVozilaWebAPI.Controllers
             {
                 return BadRequest(ex.ToString());
             }
-            //test1234
+            /*
+             * 
+             * fasf
+             * 
+             * 
+             */
         }
     }
 }
