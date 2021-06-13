@@ -23,7 +23,7 @@ namespace MotornaVozilaLibrary
                 IList<NezavisniEkonomista> ekonomisti = s.QueryOver<NezavisniEkonomista>()
                                                         .List<NezavisniEkonomista>();
 
-                foreach(NezavisniEkonomista e in ekonomisti)
+                foreach (NezavisniEkonomista e in ekonomisti)
                 {
                     n.Add(new NezavisniEkonomistaView(e));
                 }
@@ -33,14 +33,11 @@ namespace MotornaVozilaLibrary
 
                 return n;
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
-
         }
-
-       
 
         public static void DodajNEkonomistu(NezavisniEkonomistaView n)
         {
@@ -56,12 +53,12 @@ namespace MotornaVozilaLibrary
                 };
                 s.Save(nez);
                 s.Flush();
-                foreach(string t in n.Telefoni)
+                foreach (string t in n.Telefoni)
                 {
                     TelefonNezavisniEkonomista tel = new TelefonNezavisniEkonomista()
-                    { 
-                        BrojTelefona=t,
-                        NezavisniEkonomista=nez
+                    {
+                        BrojTelefona = t,
+                        NezavisniEkonomista = nez
                     };
                     nez.Telefoni.Add(tel);
                     s.Save(tel);
@@ -74,7 +71,7 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
@@ -109,9 +106,6 @@ namespace MotornaVozilaLibrary
                     s.Delete(t);
                     s.Flush();
                 }
-
-
-
 
                 n = s.Load<NezavisniEkonomista>(n.Jmbg);
                 s.Refresh(n);
@@ -149,7 +143,7 @@ namespace MotornaVozilaLibrary
         }
         #endregion
 
-
+        #region Zaposleni
         public static void DodajRadnikaTehnickeStruke(RadnikTehnickeStrukeView r)
         {
             try
@@ -188,8 +182,6 @@ namespace MotornaVozilaLibrary
                     s.Flush();
                 }
 
-
-
                 s.Close();
             }
             catch (Exception ec)
@@ -197,7 +189,6 @@ namespace MotornaVozilaLibrary
                 throw;
             }
         }
-
         public static void DodajRadnikaEkonomskeStruke(RadnikEkonomskeStrukeView r)
         {
             try
@@ -230,6 +221,106 @@ namespace MotornaVozilaLibrary
             }
         }
 
+        public static List<ZaposleniView> VratiZaposlene()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<ZaposleniView> zaposleni = new List<ZaposleniView>();
 
+                IList<Zaposleni> za = s.QueryOver<Zaposleni>()
+                                                        .List<Zaposleni>();
+
+                foreach (Zaposleni z in za)
+                {
+                    zaposleni.Add(new ZaposleniView(z));
+                }
+
+                s.Close();
+
+                return zaposleni;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static List<ZaposleniView> VratiRadnikaEkonomskeStruke()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<ZaposleniView> zaposleni = new List<ZaposleniView>();
+
+                IList<RadnikEkonomskeStruke> rs = s.QueryOver<RadnikEkonomskeStruke>()
+                                                        .List<RadnikEkonomskeStruke>();
+
+                foreach (Zaposleni z in rs)
+                {
+                    zaposleni.Add(new ZaposleniView(z));
+                }
+
+                s.Close();
+
+                return zaposleni;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static List<ZaposleniView> VratiRadnikaTehnickeStruke()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<ZaposleniView> zaposleni = new List<ZaposleniView>();
+
+                IList<RadnikTehnickeStruke> rt = s.QueryOver<RadnikTehnickeStruke>()
+                                                        .List<RadnikTehnickeStruke>();
+
+                foreach (Zaposleni z in rt)
+                {
+                    zaposleni.Add(new ZaposleniView(z));
+                }
+
+                s.Close();
+
+                return zaposleni;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static List<ZaposleniView> VratiNekeDrugeZaposlene()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<ZaposleniView> zaposleni = new List<ZaposleniView>();
+
+                IList<NekiDrugiZaposleni> nz = s.QueryOver<NekiDrugiZaposleni>()
+                                                        .List<NekiDrugiZaposleni>();
+
+                foreach (Zaposleni z in nz)
+                {
+                    zaposleni.Add(new ZaposleniView(z));
+                }
+
+                s.Close();
+
+                return zaposleni;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
     }
 }

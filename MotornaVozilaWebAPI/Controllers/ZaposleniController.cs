@@ -30,7 +30,6 @@ namespace MotornaVozilaWebAPI.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("DodajRadnikaEkonomskeStruke")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -41,6 +40,66 @@ namespace MotornaVozilaWebAPI.Controllers
             {
                 DataProvider.DodajRadnikaEkonomskeStruke(r);
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpGet]
+        [Route("VratiZaposlene")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetZaposleni()
+        {
+            try
+            {
+                return new JsonResult(DataProvider.VratiZaposlene());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpGet]
+        [Route("VratiRadnikaEkonomskeStruke")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetRadnikEkonomskeStruke()
+        {
+            try
+            {
+                return new JsonResult(DataProvider.VratiRadnikaEkonomskeStruke());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpGet]
+        [Route("VratiRadnikaTehnickeStruke")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetRadnikTehnickeStruke()
+        {
+            try
+            {
+                return new JsonResult(DataProvider.VratiRadnikaTehnickeStruke());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpGet]
+        [Route("VratiNekeDrugeZaposlene")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetNekiDrugiZaposleni()
+        {
+            try
+            {
+                return new JsonResult(DataProvider.VratiNekeDrugeZaposlene());
             }
             catch (Exception ex)
             {

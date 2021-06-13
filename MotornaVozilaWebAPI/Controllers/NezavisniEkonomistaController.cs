@@ -29,8 +29,6 @@ namespace MotornaVozilaWebAPI.Controllers
             }
         }
 
-
-
         [HttpPost]
         [Route("DodajNEkonomistu")]
         [ProducesResponseType(StatusCodes.Status200OK)]
