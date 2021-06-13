@@ -375,6 +375,58 @@ namespace MotornaVozilaLibrary
             }
         }
 
+        public static void AzurirajVoziloKojeNijeProdato(VoziloKojeNijeProdatoView vozilo)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                VoziloKojeNijeProdato vk = s.Load<VoziloKojeNijeProdato>(vozilo.BrojSasije);
+                vk.TipGoriva = vozilo.TipGoriva;
+                vk.Kubikaza = vozilo.Kubikaza;
+                vk.ModelVozila = vozilo.Model;
+                vk.FPutnickoVozilo = vozilo.FPutnickoVozilo;
+                vk.FTeretnoVozilo = vozilo.FTeretnoVozilo;
+                vk.BrojPutnika = vozilo.BrojPutnika;
+                vk.Nosivost = vozilo.Nosivost;
+                vk.TipProstora = vozilo.TipProstora;
+
+                s.Update(vk);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static void AzurirajVoziloKojeJeProdato(VoziloKojeJeProdatoView vozilo)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                VoziloKojeJeProdato vk = s.Load<VoziloKojeJeProdato>(vozilo.BrojSasije);
+                vk.TipGoriva = vozilo.TipGoriva;
+                vk.Kubikaza = vozilo.Kubikaza;
+                vk.ModelVozila = vozilo.Model;
+                vk.FPutnickoVozilo = vozilo.FPutnickoVozilo;
+                vk.FTeretnoVozilo = vozilo.FTeretnoVozilo;
+                vk.BrojPutnika = vozilo.BrojPutnika;
+                vk.Nosivost = vozilo.Nosivost;
+                vk.TipProstora = vozilo.TipProstora;
+
+                s.Update(vk);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
         #endregion
     }
 }

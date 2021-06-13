@@ -19,6 +19,10 @@ namespace MotornaVozilaLibrary.DTOs
         public string TipProstora { get; set; }
         public NESalon IzlozenUSalonu { get; set; }
 
+        public VoziloKojeNijeProdatoView()
+        {
+
+        }
         public VoziloKojeNijeProdatoView(VoziloKojeNijeProdato v)
         {
             BrojSasije = v.BrojSasije;
