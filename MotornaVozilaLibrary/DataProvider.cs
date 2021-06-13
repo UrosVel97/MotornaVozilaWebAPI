@@ -246,19 +246,19 @@ namespace MotornaVozilaLibrary
             }
         }
 
-        public static List<ZaposleniView> VratiRadnikaEkonomskeStruke()
+        public static List<RadnikEkonomskeStrukeView> VratiRadnikaEkonomskeStruke()
         {
             try
             {
                 ISession s = DataLayer.GetSession();
-                List<ZaposleniView> zaposleni = new List<ZaposleniView>();
+                List<RadnikEkonomskeStrukeView> zaposleni = new List<RadnikEkonomskeStrukeView>();
 
                 IList<RadnikEkonomskeStruke> rs = s.QueryOver<RadnikEkonomskeStruke>()
                                                         .List<RadnikEkonomskeStruke>();
 
-                foreach (Zaposleni z in rs)
+                foreach (RadnikEkonomskeStruke z in rs)
                 {
-                    zaposleni.Add(new ZaposleniView(z));
+                    zaposleni.Add(new RadnikEkonomskeStrukeView(z));
                 }
 
                 s.Close();
@@ -271,19 +271,19 @@ namespace MotornaVozilaLibrary
             }
         }
 
-        public static List<ZaposleniView> VratiRadnikaTehnickeStruke()
+        public static List<RadnikTehnickeStrukeView> VratiRadnikaTehnickeStruke()
         {
             try
             {
                 ISession s = DataLayer.GetSession();
-                List<ZaposleniView> zaposleni = new List<ZaposleniView>();
+                List<RadnikTehnickeStrukeView> zaposleni = new List<RadnikTehnickeStrukeView>();
 
                 IList<RadnikTehnickeStruke> rt = s.QueryOver<RadnikTehnickeStruke>()
                                                         .List<RadnikTehnickeStruke>();
 
-                foreach (Zaposleni z in rt)
+                foreach (RadnikTehnickeStruke z in rt)
                 {
-                    zaposleni.Add(new ZaposleniView(z));
+                    zaposleni.Add(new RadnikTehnickeStrukeView(z));
                 }
 
                 s.Close();
