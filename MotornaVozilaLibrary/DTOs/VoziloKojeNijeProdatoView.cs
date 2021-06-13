@@ -17,7 +17,7 @@ namespace MotornaVozilaLibrary.DTOs
         public int BrojPutnika { get; set; }
         public int Nosivost { get; set; }
         public string TipProstora { get; set; }
-        public NESalon IzlozenUSalonu{ get; set; }
+        public NESalon IzlozenUSalonu { get; set; }
 
         public VoziloKojeNijeProdatoView(VoziloKojeNijeProdato v)
         {
@@ -39,7 +39,7 @@ namespace MotornaVozilaLibrary.DTOs
                 SefSalona = v.IzlozenUSalonu.SefSalona,
                 SefServisa = v.IzlozenUSalonu.SefServisa
             };
-            
+
         }
     }
 }
