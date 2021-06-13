@@ -143,7 +143,6 @@ namespace MotornaVozilaLibrary
 
         }
 
-
         #endregion
 
         #region Zaposleni
@@ -195,7 +194,6 @@ namespace MotornaVozilaLibrary
             }
         }
 
-
         public static void IzbrisiRadnikaTehnickeStruke(int id)
         {
             try
@@ -205,7 +203,7 @@ namespace MotornaVozilaLibrary
 
                 IList<Specijalnost> spec = rts.Specijalnosti;
                 rts.Specijalnosti = new List<Specijalnost>();
-                foreach(Specijalnost sp in spec)
+                foreach (Specijalnost sp in spec)
                 {
                     s.Delete(sp);
                     s.Flush();
@@ -214,18 +212,18 @@ namespace MotornaVozilaLibrary
 
                 IList<UvezenoVozilo> uv = rts.UvezenaVozila;
                 rts.UvezenaVozila = new List<UvezenoVozilo>();
-                foreach(UvezenoVozilo u in uv)
+                foreach (UvezenoVozilo u in uv)
                 {
-                    IList<Boja>b= u.Boje;
+                    IList<Boja> b = u.Boje;
                     u.Boje = new List<Boja>();
-                    foreach(Boja boja in b)
+                    foreach (Boja boja in b)
                     {
                         s.Delete(boja);
                         s.Flush();
                     }
                     s.Save(u);
 
-                    if(u.GetType()==typeof(VoziloKojeJeProdato))
+                    if (u.GetType() == typeof(VoziloKojeJeProdato))
                     {
                         VoziloKojeJeProdato vp = (VoziloKojeJeProdato)u;
                         vp.Kupovina.ProdataVozila.Remove(vp);
@@ -233,7 +231,7 @@ namespace MotornaVozilaLibrary
                         s.Delete(vp);
                         s.Flush();
                     }
-                    else if(u.GetType() == typeof(VoziloKojeNijeProdato))
+                    else if (u.GetType() == typeof(VoziloKojeNijeProdato))
                     {
                         VoziloKojeNijeProdato vp = (VoziloKojeNijeProdato)u;
                         vp.IzlozenUSalonu.VozilaKojaNisuProdata.Remove(vp);
@@ -248,7 +246,7 @@ namespace MotornaVozilaLibrary
                 IList<VozilaPrimljenaNaServis> vpns = rts.PrimioVoziloNaServis;
                 rts.PrimioVoziloNaServis = new List<VozilaPrimljenaNaServis>();
 
-                foreach(VozilaPrimljenaNaServis vp in vpns)
+                foreach (VozilaPrimljenaNaServis vp in vpns)
                 {
                     vp.Vlasnik.JePoslaoVoziloNaServis.Remove(vp);
                     s.Save(vp.Vlasnik);
@@ -264,7 +262,7 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
@@ -369,7 +367,6 @@ namespace MotornaVozilaLibrary
             }
         }
 
-
         public static void IzbrisiRadnikaEkonomskeStruke(int id)
         {
             try
@@ -392,8 +389,6 @@ namespace MotornaVozilaLibrary
 
                 s.Delete(res);
                 s.Flush();
-
-
 
                 s.Close();
             }
@@ -448,8 +443,6 @@ namespace MotornaVozilaLibrary
 
                 s.SaveOrUpdate(r);
                 s.Flush();
-
-
 
                 s.Close();
             }
@@ -510,8 +503,6 @@ namespace MotornaVozilaLibrary
                 s.Delete(res);
                 s.Flush();
 
-
-
                 s.Close();
             }
             catch (Exception ec)
@@ -553,6 +544,7 @@ namespace MotornaVozilaLibrary
         }
 
         #endregion
+
         public static List<ZaposleniView> VratiZaposlene()
         {
             try
@@ -577,7 +569,6 @@ namespace MotornaVozilaLibrary
                 throw;
             }
         }
-
 
         #endregion
 
