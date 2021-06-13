@@ -106,5 +106,45 @@ namespace MotornaVozilaWebAPI.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [HttpPut]
+        [Route("AzurirajRadnikaTehnickeStruke")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AzurirajRadnikaTehnickeStruke([FromBody] RadnikTehnickeStrukeView rts)
+        {
+            try
+            {
+
+                DataProvider.AzurirajRadnikaTehnickeStruke(rts);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
+        }
+
+        [HttpPut]
+        [Route("AzurirajRadnikaEkonomskeStruke")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AzurirajRadnikaEkonomskeStruke([FromBody] RadnikEkonomskeStrukeView rts)
+        {
+            try
+            {
+
+                DataProvider.AzurirajRadnikaEkonomskeStruke(rts);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
+        }
     }
 }

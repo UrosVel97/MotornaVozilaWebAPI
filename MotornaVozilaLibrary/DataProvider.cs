@@ -120,6 +120,8 @@ namespace MotornaVozilaLibrary
             }
         }
 
+
+
         public static void AzurirajNezavisneEkonomiste(NezavisniEkonomistaView nezavisni)
         {
             try
@@ -141,6 +143,8 @@ namespace MotornaVozilaLibrary
             }
 
         }
+
+
         #endregion
 
         #region Zaposleni
@@ -315,6 +319,82 @@ namespace MotornaVozilaLibrary
 
                 return zaposleni;
             }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+
+        public static void AzurirajRadnikaTehnickeStruke(RadnikTehnickeStrukeView rts)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                RadnikTehnickeStruke r = s.Load<RadnikTehnickeStruke>(rts.Jmbg);
+
+                r.Ime = rts.Ime;
+                r.Prezime = rts.Prezime;
+                r.GodineRadnogStaza = rts.GodineRadnogStaza;
+                r.DatumIstekaUgovora = rts.DatumIstekaUgovora;
+                r.DatumRodjena = rts.DatumRodjenja;
+                r.DatumZaposlenja = rts.DatumZaposlenja;
+                r.FZaposleniPoUgovoru = rts.FZaposlenPoUgovoru;
+                r.FZaposleniZaStalno = rts.FZaposlenZaStalno;
+                r.Plata = rts.Plata;
+                r.StrucnaSprema = rts.StrucnaSprema;
+
+                s.SaveOrUpdate(r);
+                s.Flush();
+
+                foreach (string spec in rts.Specijalnosti)
+                {
+                    Specijalnost specijalnost = new Specijalnost()
+                    {
+                        SpecijalnostRadnika = spec,
+                        RadnikTehnickeStruke = r
+                    };
+                    r.Specijalnosti.Add(specijalnost);
+                    s.Save(specijalnost);
+                    s.Save(r);
+                    s.Flush();
+                }
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+
+        public static void AzurirajRadnikaEkonomskeStruke(RadnikEkonomskeStrukeView rts)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                RadnikEkonomskeStruke r = s.Load<RadnikEkonomskeStruke>(rts.Jmbg);
+
+                r.Ime = rts.Ime;
+                r.Prezime = rts.Prezime;
+                r.GodineRadnogStaza = rts.GodineRadnogStaza;
+                r.DatumIstekaUgovora = rts.DatumIstekaUgovora;
+                r.DatumRodjena = rts.DatumRodjenja;
+                r.DatumZaposlenja = rts.DatumZaposlenja;
+                r.FZaposleniPoUgovoru = rts.FZaposlenPoUgovoru;
+                r.FZaposleniZaStalno = rts.FZaposlenZaStalno;
+                r.Plata = rts.Plata;
+                r.StrucnaSprema = rts.StrucnaSprema;
+
+                s.SaveOrUpdate(r);
+                s.Flush();
+
+
+
+                s.Close();
+            }
+
             catch (Exception ec)
             {
                 throw;
