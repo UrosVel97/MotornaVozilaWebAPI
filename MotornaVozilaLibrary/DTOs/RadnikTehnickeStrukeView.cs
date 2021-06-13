@@ -15,6 +15,7 @@ namespace MotornaVozilaLibrary.DTOs
         }
         public RadnikTehnickeStrukeView(RadnikTehnickeStruke z):base(z)
         {
+            Specijalnosti = new List<string>();
             foreach (Specijalnost spec in z.Specijalnosti)
             {
                 Specijalnosti.Add(spec.SpecijalnostRadnika);
