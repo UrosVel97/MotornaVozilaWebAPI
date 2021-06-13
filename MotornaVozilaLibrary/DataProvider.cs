@@ -580,5 +580,59 @@ namespace MotornaVozilaLibrary
 
 
         #endregion
+
+        #region UvezenoVozilo
+
+        public static List<VoziloKojeJeProdatoView> VratiVoziloKojeJeProdato()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<VoziloKojeJeProdatoView> vozila = new List<VoziloKojeJeProdatoView>();
+
+                IList<VoziloKojeJeProdato> vk = s.QueryOver<VoziloKojeJeProdato>()
+                                                        .List<VoziloKojeJeProdato>();
+
+                foreach (VoziloKojeJeProdato v in vk)
+                {
+                    vozila.Add(new VoziloKojeJeProdatoView(v));
+                }
+
+                s.Close();
+
+                return vozila;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static List<VoziloKojeNijeProdatoView> VratiVoziloKojeNijeProdato()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<VoziloKojeNijeProdatoView> vozila = new List<VoziloKojeNijeProdatoView>();
+
+                IList<VoziloKojeNijeProdato> vk = s.QueryOver<VoziloKojeNijeProdato>()
+                                                        .List<VoziloKojeNijeProdato>();
+
+                foreach (VoziloKojeNijeProdato v in vk)
+                {
+                    vozila.Add(new VoziloKojeNijeProdatoView(v));
+                }
+
+                s.Close();
+
+                return vozila;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
     }
 }
