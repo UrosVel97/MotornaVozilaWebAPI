@@ -13,6 +13,8 @@ namespace MotornaVozilaWebAPI.Controllers
     [Route("[controller]")]
     public class ZaposleniController : ControllerBase
     {
+
+        #region RadnikTehnickeStruke
         [HttpPost]
         [Route("DodajRadnikaTehnickeStruke")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -30,46 +32,16 @@ namespace MotornaVozilaWebAPI.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("DodajRadnikaEkonomskeStruke")]
+        [HttpDelete]
+        [Route("IzbrisiRadnikaTehnickeStruke/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult AddRadnikaEkonomskeStruke([FromBody] RadnikEkonomskeStrukeView r)
+        public IActionResult DeleteRadnikaTehnickeStruke(int id)
         {
             try
             {
-                DataProvider.DodajRadnikaEkonomskeStruke(r);
+                DataProvider.IzbrisiRadnikaTehnickeStruke(id);
                 return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
-        }
-
-        [HttpGet]
-        [Route("VratiZaposlene")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult GetZaposleni()
-        {
-            try
-            {
-                return new JsonResult(DataProvider.VratiZaposlene());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
-        }
-
-        [HttpGet]
-        [Route("VratiRadnikaEkonomskeStruke")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult GetRadnikEkonomskeStruke()
-        {
-            try
-            {
-                return new JsonResult(DataProvider.VratiRadnikaEkonomskeStruke());
             }
             catch (Exception ex)
             {
@@ -92,6 +64,133 @@ namespace MotornaVozilaWebAPI.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("AzurirajRadnikaTehnickeStruke")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AzurirajRadnikaTehnickeStruke([FromBody] RadnikTehnickeStrukeView rts)
+        {
+            try
+            {
+
+                DataProvider.AzurirajRadnikaTehnickeStruke(rts);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
+        }
+        #endregion
+
+        #region RadnikEkonomskeStruke
+        [HttpPost]
+        [Route("DodajRadnikaEkonomskeStruke")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddRadnikaEkonomskeStruke([FromBody] RadnikEkonomskeStrukeView r)
+        {
+            try
+            {
+                DataProvider.DodajRadnikaEkonomskeStruke(r);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        [Route("IzbrisiRadnikaEkonomskeStruke/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteRadnikaEkonomskeStruketruke(int id)
+        {
+            try
+            {
+                DataProvider.IzbrisiRadnikaEkonomskeStruke(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpGet]
+        [Route("VratiRadnikaEkonomskeStruke")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetRadnikEkonomskeStruke()
+        {
+            try
+            {
+                return new JsonResult(DataProvider.VratiRadnikaEkonomskeStruke());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPut]
+        [Route("AzurirajRadnikaEkonomskeStruke")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AzurirajRadnikaEkonomskeStruke([FromBody] RadnikEkonomskeStrukeView rts)
+        {
+            try
+            {
+
+                DataProvider.AzurirajRadnikaEkonomskeStruke(rts);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+
+        }
+        #endregion
+
+        #region NekiDrugiZaposleni
+        [HttpPost]
+        [Route("DodajNekogDrugogZaposlenog")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddNekiDrugiZaposleni([FromBody] ZaposleniView r)
+        {
+            try
+            {
+                DataProvider.DodajNekogDrugogZaposlenog(r);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        [Route("IzbrisiNekogDrugogZaposlenog/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteNekiDrugiZaposleni(int id)
+        {
+            try
+            {
+                DataProvider.IzbrisiNekogDrugogZaposlenog(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
         [HttpGet]
         [Route("VratiNekeDrugeZaposlene")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -106,5 +205,21 @@ namespace MotornaVozilaWebAPI.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        #endregion
+
+        [HttpGet]
+        [Route("VratiZaposlene")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetZaposleni()
+        {
+            try
+            {
+                return new JsonResult(DataProvider.VratiZaposlene());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        } 
     }
 }

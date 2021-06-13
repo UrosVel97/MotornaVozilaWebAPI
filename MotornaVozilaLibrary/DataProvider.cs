@@ -120,6 +120,7 @@ namespace MotornaVozilaLibrary
             }
         }
 
+
         public static void AzurirajNezavisneEkonomiste(NezavisniEkonomistaView nezavisni)
         {
             try
@@ -141,9 +142,13 @@ namespace MotornaVozilaLibrary
             }
 
         }
+
+
         #endregion
 
         #region Zaposleni
+
+        #region RadnikTehnickeStruke
         public static void DodajRadnikaTehnickeStruke(RadnikTehnickeStrukeView r)
         {
             try
@@ -189,6 +194,149 @@ namespace MotornaVozilaLibrary
                 throw;
             }
         }
+
+
+        public static void IzbrisiRadnikaTehnickeStruke(int id)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                RadnikTehnickeStruke rts = s.Load<RadnikTehnickeStruke>(id);
+
+                IList<Specijalnost> spec = rts.Specijalnosti;
+                rts.Specijalnosti = new List<Specijalnost>();
+                foreach(Specijalnost sp in spec)
+                {
+                    s.Delete(sp);
+                    s.Flush();
+                }
+                s.Save(rts);
+
+                IList<UvezenoVozilo> uv = rts.UvezenaVozila;
+                rts.UvezenaVozila = new List<UvezenoVozilo>();
+                foreach(UvezenoVozilo u in uv)
+                {
+                    IList<Boja>b= u.Boje;
+                    u.Boje = new List<Boja>();
+                    foreach(Boja boja in b)
+                    {
+                        s.Delete(boja);
+                        s.Flush();
+                    }
+                    s.Save(u);
+
+                    if(u.GetType()==typeof(VoziloKojeJeProdato))
+                    {
+                        VoziloKojeJeProdato vp = (VoziloKojeJeProdato)u;
+                        vp.Kupovina.ProdataVozila.Remove(vp);
+                        s.Save(vp.Kupovina);
+                        s.Delete(vp);
+                        s.Flush();
+                    }
+                    else if(u.GetType() == typeof(VoziloKojeNijeProdato))
+                    {
+                        VoziloKojeNijeProdato vp = (VoziloKojeNijeProdato)u;
+                        vp.IzlozenUSalonu.VozilaKojaNisuProdata.Remove(vp);
+                        s.Save(vp.IzlozenUSalonu);
+                        s.Delete(vp);
+                        s.Flush();
+                    }
+                }
+
+                s.Save(rts);
+
+                IList<VozilaPrimljenaNaServis> vpns = rts.PrimioVoziloNaServis;
+                rts.PrimioVoziloNaServis = new List<VozilaPrimljenaNaServis>();
+
+                foreach(VozilaPrimljenaNaServis vp in vpns)
+                {
+                    vp.Vlasnik.JePoslaoVoziloNaServis.Remove(vp);
+                    s.Save(vp.Vlasnik);
+                    s.Delete(vp);
+                    s.Flush();
+                }
+                s.Save(rts);
+
+                s.Delete(rts);
+                s.Flush();
+
+
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
+        public static List<RadnikTehnickeStrukeView> VratiRadnikaTehnickeStruke()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<RadnikTehnickeStrukeView> zaposleni = new List<RadnikTehnickeStrukeView>();
+
+                IList<RadnikTehnickeStruke> rt = s.QueryOver<RadnikTehnickeStruke>()
+                                                        .List<RadnikTehnickeStruke>();
+
+                foreach (RadnikTehnickeStruke z in rt)
+                {
+                    zaposleni.Add(new RadnikTehnickeStrukeView(z));
+                }
+
+                s.Close();
+
+                return zaposleni;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+        public static void AzurirajRadnikaTehnickeStruke(RadnikTehnickeStrukeView rts)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                RadnikTehnickeStruke r = s.Load<RadnikTehnickeStruke>(rts.Jmbg);
+
+                r.Ime = rts.Ime;
+                r.Prezime = rts.Prezime;
+                r.GodineRadnogStaza = rts.GodineRadnogStaza;
+                r.DatumIstekaUgovora = rts.DatumIstekaUgovora;
+                r.DatumRodjena = rts.DatumRodjenja;
+                r.DatumZaposlenja = rts.DatumZaposlenja;
+                r.FZaposleniPoUgovoru = rts.FZaposlenPoUgovoru;
+                r.FZaposleniZaStalno = rts.FZaposlenZaStalno;
+                r.Plata = rts.Plata;
+                r.StrucnaSprema = rts.StrucnaSprema;
+
+                s.SaveOrUpdate(r);
+                s.Flush();
+
+                foreach (string spec in rts.Specijalnosti)
+                {
+                    Specijalnost specijalnost = new Specijalnost()
+                    {
+                        SpecijalnostRadnika = spec,
+                        RadnikTehnickeStruke = r
+                    };
+                    r.Specijalnosti.Add(specijalnost);
+                    s.Save(specijalnost);
+                    s.Save(r);
+                    s.Flush();
+                }
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+        #endregion
+
+        #region RadnikEkonomskeStruke
         public static void DodajRadnikaEkonomskeStruke(RadnikEkonomskeStrukeView r)
         {
             try
@@ -221,24 +369,33 @@ namespace MotornaVozilaLibrary
             }
         }
 
-        public static List<ZaposleniView> VratiZaposlene()
+
+        public static void IzbrisiRadnikaEkonomskeStruke(int id)
         {
             try
             {
                 ISession s = DataLayer.GetSession();
-                List<ZaposleniView> zaposleni = new List<ZaposleniView>();
+                RadnikEkonomskeStruke res = s.Load<RadnikEkonomskeStruke>(id);
 
-                IList<Zaposleni> za = s.QueryOver<Zaposleni>()
-                                                        .List<Zaposleni>();
 
-                foreach (Zaposleni z in za)
+                IList<VozilaPrimljenaNaServis> vpns = res.PrimioVoziloNaServis;
+                res.PrimioVoziloNaServis = new List<VozilaPrimljenaNaServis>();
+
+                foreach (VozilaPrimljenaNaServis vp in vpns)
                 {
-                    zaposleni.Add(new ZaposleniView(z));
+                    vp.Vlasnik.JePoslaoVoziloNaServis.Remove(vp);
+                    s.Save(vp.Vlasnik);
+                    s.Delete(vp);
+                    s.Flush();
                 }
+                s.Save(res);
+
+                s.Delete(res);
+                s.Flush();
+
+
 
                 s.Close();
-
-                return zaposleni;
             }
             catch (Exception ec)
             {
@@ -271,31 +428,40 @@ namespace MotornaVozilaLibrary
             }
         }
 
-        public static List<RadnikTehnickeStrukeView> VratiRadnikaTehnickeStruke()
+        public static void AzurirajRadnikaEkonomskeStruke(RadnikEkonomskeStrukeView rts)
         {
             try
             {
                 ISession s = DataLayer.GetSession();
-                List<RadnikTehnickeStrukeView> zaposleni = new List<RadnikTehnickeStrukeView>();
+                RadnikEkonomskeStruke r = s.Load<RadnikEkonomskeStruke>(rts.Jmbg);
 
-                IList<RadnikTehnickeStruke> rt = s.QueryOver<RadnikTehnickeStruke>()
-                                                        .List<RadnikTehnickeStruke>();
+                r.Ime = rts.Ime;
+                r.Prezime = rts.Prezime;
+                r.GodineRadnogStaza = rts.GodineRadnogStaza;
+                r.DatumIstekaUgovora = rts.DatumIstekaUgovora;
+                r.DatumRodjena = rts.DatumRodjenja;
+                r.DatumZaposlenja = rts.DatumZaposlenja;
+                r.FZaposleniPoUgovoru = rts.FZaposlenPoUgovoru;
+                r.FZaposleniZaStalno = rts.FZaposlenZaStalno;
+                r.Plata = rts.Plata;
+                r.StrucnaSprema = rts.StrucnaSprema;
 
-                foreach (RadnikTehnickeStruke z in rt)
-                {
-                    zaposleni.Add(new RadnikTehnickeStrukeView(z));
-                }
+                s.SaveOrUpdate(r);
+                s.Flush();
+
+
 
                 s.Close();
-
-                return zaposleni;
             }
+
             catch (Exception ec)
             {
                 throw;
             }
         }
+        #endregion
 
+        #region NekiDrugiZaposleni
         public static List<ZaposleniView> VratiNekeDrugeZaposlene()
         {
             try
@@ -320,6 +486,98 @@ namespace MotornaVozilaLibrary
                 throw;
             }
         }
+
+        public static void IzbrisiNekogDrugogZaposlenog(int id)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                NekiDrugiZaposleni res = s.Load<NekiDrugiZaposleni>(id);
+
+
+                IList<VozilaPrimljenaNaServis> vpns = res.PrimioVoziloNaServis;
+                res.PrimioVoziloNaServis = new List<VozilaPrimljenaNaServis>();
+
+                foreach (VozilaPrimljenaNaServis vp in vpns)
+                {
+                    vp.Vlasnik.JePoslaoVoziloNaServis.Remove(vp);
+                    s.Save(vp.Vlasnik);
+                    s.Delete(vp);
+                    s.Flush();
+                }
+                s.Save(res);
+
+                s.Delete(res);
+                s.Flush();
+
+
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static void DodajNekogDrugogZaposlenog(ZaposleniView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                NekiDrugiZaposleni z = new NekiDrugiZaposleni()
+                {
+                    Jmbg = r.Jmbg,
+                    Ime = r.Ime,
+                    Prezime = r.Prezime,
+                    GodineRadnogStaza = r.GodineRadnogStaza,
+                    DatumRodjena = r.DatumRodjenja,
+                    DatumZaposlenja = r.DatumZaposlenja,
+                    FZaposleniZaStalno = r.FZaposlenZaStalno,
+                    FZaposleniPoUgovoru = r.FZaposlenPoUgovoru,
+                    Plata = r.Plata,
+                    DatumIstekaUgovora = r.DatumIstekaUgovora,
+                    StrucnaSprema = r.StrucnaSprema
+
+                };
+
+                s.Save(z);
+                s.Flush();
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+        public static List<ZaposleniView> VratiZaposlene()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<ZaposleniView> zaposleni = new List<ZaposleniView>();
+
+                IList<Zaposleni> za = s.QueryOver<Zaposleni>()
+                                                        .List<Zaposleni>();
+
+                foreach (Zaposleni z in za)
+                {
+                    zaposleni.Add(new ZaposleniView(z));
+                }
+
+                s.Close();
+
+                return zaposleni;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
 
         #endregion
 
