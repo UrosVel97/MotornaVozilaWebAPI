@@ -73,5 +73,73 @@ namespace MotornaVozilaWebAPI.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [HttpPost]
+        [Route("DodajVoziloKojeNijeProdato")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddVoziloKojeNijeProdato([FromBody] VoziloKojeNijeProdatoAddView v)
+        {
+            try
+            {
+                DataProvider.DodajVoziloKojeNijeProdato(v);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        [Route("DodajVoziloKojeJeProdato")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddVoziloKojeJeProdato([FromBody] VoziloKojeJeProdatoAddView v)
+        {
+            try
+            {
+                DataProvider.DodajVoziloKojeJeProdato(v);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        [Route("IzbrisiVoziloKojeNijeProdato/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteVoziloKojeNijeProdato(int id)
+        {
+            try
+            {
+                DataProvider.IzbrisiVoziloKojeNijeProdato(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        [Route("IzbrisiVoziloKojeJeProdato/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteVoziloKojeJeProdato(int id)
+        {
+            try
+            {
+                DataProvider.IzbrisiVoziloKojeJeProdato(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }

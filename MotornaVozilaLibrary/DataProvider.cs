@@ -120,7 +120,6 @@ namespace MotornaVozilaLibrary
             }
         }
 
-
         public static void AzurirajNezavisneEkonomiste(NezavisniEkonomistaView nezavisni)
         {
             try
@@ -142,6 +141,7 @@ namespace MotornaVozilaLibrary
             }
 
         }
+
 
         #endregion
 
@@ -574,31 +574,7 @@ namespace MotornaVozilaLibrary
 
         #region UvezenoVozilo
 
-        public static List<VoziloKojeJeProdatoView> VratiVoziloKojeJeProdato()
-        {
-            try
-            {
-                ISession s = DataLayer.GetSession();
-                List<VoziloKojeJeProdatoView> vozila = new List<VoziloKojeJeProdatoView>();
-
-                IList<VoziloKojeJeProdato> vk = s.QueryOver<VoziloKojeJeProdato>()
-                                                        .List<VoziloKojeJeProdato>();
-
-                foreach (VoziloKojeJeProdato v in vk)
-                {
-                    vozila.Add(new VoziloKojeJeProdatoView(v));
-                }
-
-                s.Close();
-
-                return vozila;
-            }
-            catch (Exception ec)
-            {
-                throw;
-            }
-        }
-
+        #region VoziloKojeNijeProdato
         public static List<VoziloKojeNijeProdatoView> VratiVoziloKojeNijeProdato()
         {
             try
@@ -650,6 +626,124 @@ namespace MotornaVozilaLibrary
             }
         }
 
+
+        public static void DodajVoziloKojeNijeProdato(VoziloKojeNijeProdatoAddView v)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                VoziloKojeNijeProdato vozilo = new VoziloKojeNijeProdato()
+                {
+                    BrojSasije = v.BrojSasije,
+                    BrojMotora = v.BrojMotora,
+                    DatumUvoza = v.DatumUvoza,
+                    TipGoriva = v.TipGoriva,
+                    Kubikaza = v.Kubikaza,
+                    ModelVozila = v.Model,
+                    FPutnickoVozilo = v.FPutnickoVozilo,
+                    FTeretnoVozilo = v.FTeretnoVozilo,
+                    Nosivost = v.Nosivost,
+                    TipProstora = v.TipProstora,
+                    BrojPutnika = v.BrojPutnika
+                };
+
+                RadnikTehnickeStruke rts = s.Load<RadnikTehnickeStruke>(v.JmbgRadnikaTehnickeStruke);
+                Salon salon = s.Load<Salon>(v.IdSalona);
+                vozilo.RadnikTehnStruke = rts;
+                vozilo.IzlozenUSalonu = salon;
+                rts.UvezenaVozila.Add(vozilo);
+                salon.VozilaKojaNisuProdata.Add(vozilo);
+                s.Save(vozilo);
+                s.Save(rts);
+                s.Save(salon);
+                s.Flush();
+
+                foreach (string boja in v.Boje)
+                {
+                    Boja b = new Boja()
+                    {
+                        BojaVozila = boja,
+                        UvezenoVozilo = vozilo
+                    };
+                    vozilo.Boje.Add(b);
+                    s.Save(b);
+                    s.Save(vozilo);
+                    s.Flush();
+                }
+
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+
+        public static void IzbrisiVoziloKojeNijeProdato(int id)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                VoziloKojeNijeProdato v = s.Load<VoziloKojeNijeProdato>(id);
+                v.RadnikTehnStruke.UvezenaVozila.Remove(v);
+                v.IzlozenUSalonu.VozilaKojaNisuProdata.Remove(v);
+
+                IList<Boja> boje = v.Boje;
+                v.Boje = new List<Boja>();
+
+                foreach (Boja b in boje)
+                {
+                    s.Delete(b);
+                    s.Flush();
+                }
+
+                s.SaveOrUpdate(v);
+                s.Delete(v);
+                s.Flush();
+
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region VoziloKojeJeProdato
+        public static List<VoziloKojeJeProdatoView> VratiVoziloKojeJeProdato()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<VoziloKojeJeProdatoView> vozila = new List<VoziloKojeJeProdatoView>();
+
+                IList<VoziloKojeJeProdato> vk = s.QueryOver<VoziloKojeJeProdato>()
+                                                        .List<VoziloKojeJeProdato>();
+
+                foreach (VoziloKojeJeProdato v in vk)
+                {
+                    vozila.Add(new VoziloKojeJeProdatoView(v));
+                }
+
+                s.Close();
+
+                return vozila;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+       
+
+       
+
         public static void AzurirajVoziloKojeJeProdato(VoziloKojeJeProdatoView vozilo)
         {
             try
@@ -675,6 +769,98 @@ namespace MotornaVozilaLibrary
                 throw;
             }
         }
+
+        
+
+
+        public static void DodajVoziloKojeJeProdato(VoziloKojeJeProdatoAddView v)
+        {
+
+            try
+            {
+
+                ISession s = DataLayer.GetSession();
+                VoziloKojeJeProdato vozilo = new VoziloKojeJeProdato()
+                {
+                    BrojSasije = v.BrojSasije,
+                    BrojMotora = v.BrojMotora,
+                    DatumUvoza = v.DatumUvoza,
+                    TipGoriva = v.TipGoriva,
+                    Kubikaza = v.Kubikaza,
+                    ModelVozila = v.Model,
+                    FPutnickoVozilo = v.FPutnickoVozilo,
+                    FTeretnoVozilo = v.FTeretnoVozilo,
+                    Nosivost = v.Nosivost,
+                    TipProstora = v.TipProstora,
+                    BrojPutnika = v.BrojPutnika
+                };
+
+                RadnikTehnickeStruke rts = s.Load<RadnikTehnickeStruke>(v.JmbgRadnikaTehnickeStruke);
+                Kupovina kupovina = s.Load<Kupovina>(v.IdKupovine);
+                vozilo.RadnikTehnStruke = rts;
+                vozilo.Kupovina = kupovina;
+                rts.UvezenaVozila.Add(vozilo);
+                kupovina.ProdataVozila.Add(vozilo);
+                s.Save(vozilo);
+                s.Save(rts);
+                s.Save(kupovina);
+                s.Flush();
+
+                foreach (string boja in v.Boje)
+                {
+                    Boja b = new Boja()
+                    {
+                        BojaVozila = boja,
+                        UvezenoVozilo = vozilo
+                    };
+                    vozilo.Boje.Add(b);
+                    s.Save(b);
+                    s.Save(vozilo);
+                    s.Flush();
+                }
+
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
+
+
+        public static void IzbrisiVoziloKojeJeProdato(int id)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                VoziloKojeJeProdato v = s.Load<VoziloKojeJeProdato>(id);
+                v.RadnikTehnStruke.UvezenaVozila.Remove(v);
+                v.Kupovina.ProdataVozila.Remove(v);
+
+                IList<Boja> boje = v.Boje;
+                v.Boje = new List<Boja>();
+
+                foreach (Boja b in boje)
+                {
+                    s.Delete(b);
+                    s.Flush();
+                }
+
+                s.SaveOrUpdate(v);
+                s.Delete(v);
+                s.Flush();
+
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
 
         #endregion
     }
