@@ -1112,24 +1112,31 @@ namespace MotornaVozilaLibrary
             {
                 ISession s = DataLayer.GetSession();
                 Kupovina k = s.Load<Kupovina>(id);
-                k.IdKupca.Kupovine.Remove(k);
-                k.IdSalona.Kupovine.Remove(k);
+                Salon salon = s.Load<Salon>(k.IdSalona.Id);
+                Kupac kupac = s.Load<Kupac>(k.IdKupca.Id);
 
-                s.SaveOrUpdate(k.IdKupca);
-                s.SaveOrUpdate(k.IdSalona);
+                salon.Kupovine.Remove(k);
+                kupac.Kupovine.Remove(k);
+                s.SaveOrUpdate(salon);
+                s.SaveOrUpdate(kupac);
 
-
-                IList<VoziloKojeJeProdato> vkp = k.ProdataVozila;
+                s.Flush();
+                IList<VoziloKojeJeProdato> vozila = k.ProdataVozila;
                 k.ProdataVozila = new List<VoziloKojeJeProdato>();
-                foreach(VoziloKojeJeProdato v in vkp)
+
+
+                foreach (VoziloKojeJeProdato vkp in vozila)
                 {
-                    IzbrisiVoziloKojeJeProdato(v.BrojSasije);
+                    RadnikTehnickeStruke rts = s.Load<RadnikTehnickeStruke>(vkp.RadnikTehnStruke.Jmbg);
+                    rts.UvezenaVozila.Remove(vkp);
+                    s.SaveOrUpdate(rts);
+                    s.Flush();
+                    s.Delete(vkp);
+                    s.Flush();
                 }
 
-                s.SaveOrUpdate(k);
                 s.Delete(k);
                 s.Flush();
-
 
                 s.Close();
             }
@@ -1138,8 +1145,6 @@ namespace MotornaVozilaLibrary
                 throw;
             }
         }
-
-       
 
     }
 }
