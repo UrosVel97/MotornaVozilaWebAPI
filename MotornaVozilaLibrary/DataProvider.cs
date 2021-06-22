@@ -903,7 +903,7 @@ namespace MotornaVozilaLibrary
                 sa.SefSalona = salon.SefSalona;
                 sa.SefServisa = salon.SefServisa;
                 sa.StepenOpremljenostiServisa = salon.StepenOpremljenostiServisa;
-                sa.FServis = salon.FServis;
+            
 
                 s.Update(sa);
                 s.Flush();
