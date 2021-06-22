@@ -39,6 +39,7 @@ namespace MotornaVozilaLibrary
             }
         }
 
+
         public static void DodajNEkonomistu(NezavisniEkonomistaView n)
         {
             try
@@ -740,9 +741,9 @@ namespace MotornaVozilaLibrary
             }
         }
 
-       
 
-       
+
+
 
         public static void AzurirajVoziloKojeJeProdato(VoziloKojeJeProdatoView vozilo)
         {
@@ -770,7 +771,7 @@ namespace MotornaVozilaLibrary
             }
         }
 
-        
+
 
 
         public static void DodajVoziloKojeJeProdato(VoziloKojeJeProdatoAddView v)
@@ -822,7 +823,7 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
@@ -861,6 +862,71 @@ namespace MotornaVozilaLibrary
         }
 
         #endregion
+
+        #endregion
+
+
+        #region Salon
+        public static void DodajSalon(SalonAddView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Salon salon = new Salon()
+                {
+                    Grad = r.Grad,
+                    Adresa = r.Adresa,
+                    StepenOpremljenostiServisa = r.StepenOpremljenostiServisa,
+                    SefSalona = r.SefSalona,
+                    SefServisa = r.SefServisa,
+                    FServis = r.FServis
+                };
+
+                s.Save(salon);
+                s.Flush();
+
+                foreach (string tip in r.TipoviRadova)
+                {
+                    TipRadova t = s.Get<TipRadova>(tip);
+                    if (t == null)
+                    {
+                        t = new TipRadova()
+                        {
+                            Tip_Radova = tip
+                        };
+
+                    }
+                    t.Servis.Add(salon);
+                    salon.TipoviRadova.Add(t);
+                    s.Save(t);
+                    s.Save(salon);
+                    s.Flush();
+
+
+                }
+
+                foreach (int jmbg in r.JmbgNezavisnihEkonomista)
+                {
+                    NezavisniEkonomista n = s.Load<NezavisniEkonomista>(jmbg);
+                    salon.NezavisniEkonomisti.Add(n);
+                    n.Saloni.Add(salon);
+                    s.Save(salon);
+                    s.Save(n);
+                    s.Flush();
+
+                }
+
+
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
 
         #endregion
     }
