@@ -51,8 +51,7 @@ namespace MotornaVozilaWebAPI.Controllers
         public IActionResult AddSalon([FromBody] SalonAddView r)
         {
             try
-            {
-                //TODO
+            {               
                 DataProvider.DodajSalon(r);
                 return Ok();
             }
@@ -69,8 +68,7 @@ namespace MotornaVozilaWebAPI.Controllers
         {
             try
             {
-                //TODO
-                //DataProvider.IzbrisiSalon(id);
+                DataProvider.IzbrisiSalon(id);
                 return Ok();
             }
             catch (Exception ex)

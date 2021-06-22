@@ -978,6 +978,168 @@ namespace MotornaVozilaLibrary
         }
 
 
+        public static void IzbrisiSalon(int id)
+        {
+            try
+            {
+                IzbrisiVoziloKojeNijeProdatoZaSalon(id);
+                IzbrisiKupovinuZaSalon(id);
+
+
+                ISession s = DataLayer.GetSession();
+                Salon salon = s.Load<Salon>(id);
+
+
+                IList<TipRadova> tipovi =salon.TipoviRadova;
+                salon.TipoviRadova = new List<TipRadova>();
+                foreach (TipRadova t in tipovi)
+                {
+                    t.Servis.Remove(salon);
+                    s.SaveOrUpdate(t);
+                }
+
+                s.SaveOrUpdate(salon);
+
+                IList<NezavisniEkonomista> ne = salon.NezavisniEkonomisti;
+                salon.NezavisniEkonomisti = new List<NezavisniEkonomista>();
+                foreach (NezavisniEkonomista n in ne)
+                {
+                    n.Saloni.Remove(salon);
+                    s.SaveOrUpdate(n);
+                }
+                s.SaveOrUpdate(salon);
+                s.Flush();
+
+                s.Delete(salon);
+                s.Flush();
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
+
+        private static void IzbrisiKupovinuZaSalon(int idSalona)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                Salon salonZaBrisanje = s.Load<Salon>(idSalona);
+                IList<Kupovina> kup = salonZaBrisanje.Kupovine;
+                salonZaBrisanje.Kupovine = new List<Kupovina>();
+                foreach (Kupovina kupovina in kup)
+                {
+                    Kupovina k = s.Load<Kupovina>(kupovina.Id);
+                    Kupac kupac = s.Load<Kupac>(k.IdKupca.Id);
+
+                    kupac.Kupovine.Remove(k);
+                    s.SaveOrUpdate(kupac);
+
+                    s.Flush();
+
+                    IList<VoziloKojeJeProdato> prodata = k.ProdataVozila;
+                    k.ProdataVozila = new List<VoziloKojeJeProdato>();
+                    foreach (VoziloKojeJeProdato vkp in prodata)
+                    {
+
+                        RadnikTehnickeStruke rts = s.Load<RadnikTehnickeStruke>(vkp.RadnikTehnStruke.Jmbg);
+                        rts.UvezenaVozila.Remove(vkp);
+                        s.SaveOrUpdate(rts);
+
+                        s.Delete(vkp);
+                        s.Flush();
+
+                    }
+                    s.SaveOrUpdate(k);
+                    s.Flush();
+                    s.Delete(k);
+                    s.Flush();
+
+                }
+
+                s.SaveOrUpdate(salonZaBrisanje);
+                s.Flush();
+                s.Close();
+            }
+
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        private static void IzbrisiVoziloKojeNijeProdatoZaSalon(int idSalona)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                Salon salonZaBrisanje = s.Load<Salon>(idSalona);
+                IList<VoziloKojeNijeProdato> nisuProdata = salonZaBrisanje.VozilaKojaNisuProdata;
+                salonZaBrisanje.VozilaKojaNisuProdata = new List<VoziloKojeNijeProdato>();
+                foreach (VoziloKojeNijeProdato v in nisuProdata)
+                {
+                    VoziloKojeNijeProdato vknp = s.Load<VoziloKojeNijeProdato>(v.BrojSasije);
+                    RadnikTehnickeStruke rts = s.Load<RadnikTehnickeStruke>(vknp.RadnikTehnStruke.Jmbg);
+
+
+                    rts.UvezenaVozila.Remove(vknp);
+
+                    s.SaveOrUpdate(rts);
+                    s.Flush();
+                    s.Delete(vknp);
+                    s.Flush();
+
+                }
+                s.SaveOrUpdate(salonZaBrisanje);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+
         #endregion
+
+
+        public static void IzbrisiKupovinu(int id)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                Kupovina k = s.Load<Kupovina>(id);
+                k.IdKupca.Kupovine.Remove(k);
+                k.IdSalona.Kupovine.Remove(k);
+
+                s.SaveOrUpdate(k.IdKupca);
+                s.SaveOrUpdate(k.IdSalona);
+
+
+                IList<VoziloKojeJeProdato> vkp = k.ProdataVozila;
+                k.ProdataVozila = new List<VoziloKojeJeProdato>();
+                foreach(VoziloKojeJeProdato v in vkp)
+                {
+                    IzbrisiVoziloKojeJeProdato(v.BrojSasije);
+                }
+
+                s.SaveOrUpdate(k);
+                s.Delete(k);
+                s.Flush();
+
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
+
+       
+
     }
 }
