@@ -627,7 +627,6 @@ namespace MotornaVozilaLibrary
             }
         }
 
-
         public static void DodajVoziloKojeNijeProdato(VoziloKojeNijeProdatoAddView v)
         {
             try
@@ -862,6 +861,59 @@ namespace MotornaVozilaLibrary
         }
 
         #endregion
+
+        #endregion
+
+        #region Salon
+
+        public static List<SalonView> VratiSalone()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<SalonView> vozila = new List<SalonView>();
+
+                IList<Salon> salons = s.QueryOver<Salon>()
+                                            .List<Salon>();
+
+                foreach (Salon sa in salons)
+                {
+                    vozila.Add(new SalonView(sa));
+                }
+
+                s.Close();
+
+                return vozila;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static void AzurirajSalone(SalonView salon)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Salon sa = s.Load<Salon>(salon.Id);
+                sa.Grad = salon.Grad;
+                sa.Adresa = salon.Adresa;
+                sa.SefSalona = salon.SefSalona;
+                sa.SefServisa = salon.SefServisa;
+                sa.StepenOpremljenostiServisa = salon.StepenOpremljenostiServisa;
+                sa.FServis = salon.FServis;
+
+                s.Update(sa);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
 
         #endregion
 
