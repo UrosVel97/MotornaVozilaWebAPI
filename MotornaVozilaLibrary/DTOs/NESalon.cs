@@ -14,6 +14,10 @@ namespace MotornaVozilaLibrary.DTOs
         public string SefSalona { get; set; }
         public string SefServisa { get; set; }
 
+        public NESalon()
+        {
+
+        }
         public NESalon(Salon salon)
         {
             Id = salon.Id;
