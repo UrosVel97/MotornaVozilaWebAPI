@@ -915,10 +915,8 @@ namespace MotornaVozilaLibrary
             }
         }
 
-        #endregion
 
 
-        #region Salon
         public static void DodajSalon(SalonAddView r)
         {
             try
