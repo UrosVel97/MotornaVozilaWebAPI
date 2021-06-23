@@ -7,10 +7,16 @@ namespace MotornaVozilaLibrary.DTOs
 {
     public class KupovinaView
     {
-        public DateTime DatumKupovine{ get; set; }
-        public NESalon KupljenoUSalonu{ get; set; }
+        public int Id { get; set; }
+        public DateTime DatumKupovine { get; set; }
+        public NESalon KupljenoUSalonu { get; set; }
         public KupovinaKupacView Kupac { get; set; }
         public IList<VoziloKojeJeProdatoView> Vozila { get; set; }
+
+        public KupovinaView()
+        {
+
+        }
 
         public KupovinaView(Kupovina k)
         {
@@ -19,7 +25,7 @@ namespace MotornaVozilaLibrary.DTOs
             Kupac = new KupovinaKupacView(k.IdKupca);
             DatumKupovine = k.DatumKupovine;
 
-            foreach(VoziloKojeJeProdato v in k.ProdataVozila)
+            foreach (VoziloKojeJeProdato v in k.ProdataVozila)
             {
                 Vozila.Add(new VoziloKojeJeProdatoView(v));
             }

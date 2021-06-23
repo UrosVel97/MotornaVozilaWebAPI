@@ -903,7 +903,7 @@ namespace MotornaVozilaLibrary
                 sa.SefSalona = salon.SefSalona;
                 sa.SefServisa = salon.SefServisa;
                 sa.StepenOpremljenostiServisa = salon.StepenOpremljenostiServisa;
-            
+
 
                 s.Update(sa);
                 s.Flush();
@@ -990,7 +990,7 @@ namespace MotornaVozilaLibrary
                 Salon salon = s.Load<Salon>(id);
 
 
-                IList<TipRadova> tipovi =salon.TipoviRadova;
+                IList<TipRadova> tipovi = salon.TipoviRadova;
                 salon.TipoviRadova = new List<TipRadova>();
                 foreach (TipRadova t in tipovi)
                 {
@@ -1015,7 +1015,7 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
@@ -1105,6 +1105,51 @@ namespace MotornaVozilaLibrary
 
         #endregion
 
+        #region Kupovina
+
+        public static List<KupovinaView> VratiKupovine()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<KupovinaView> kup = new List<KupovinaView>();
+
+                IList<Kupovina> kupovina = s.QueryOver<Kupovina>()
+                                            .List<Kupovina>();
+
+                foreach (Kupovina ku in kupovina)
+                {
+                    kup.Add(new KupovinaView(ku));
+                }
+
+                s.Close();
+
+                return kup;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static void AzurirajKupovine(KupovinaView kupovina)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Kupovina ku = s.Load<Kupovina>(kupovina.Id);
+                ku.DatumKupovine = kupovina.DatumKupovine;
+
+                s.Update(ku);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
 
         public static void IzbrisiKupovinu(int id)
         {
@@ -1140,11 +1185,13 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
         }
+
+        #endregion
 
     }
 }

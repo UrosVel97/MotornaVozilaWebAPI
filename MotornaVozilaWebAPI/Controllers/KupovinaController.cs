@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MotornaVozilaLibrary;
+using MotornaVozilaLibrary.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,39 @@ namespace MotornaVozilaWebAPI.Controllers
     [Route("[controller]")]
     public class KupovinaController : ControllerBase
     {
+
+        [HttpGet]
+        [Route("VratiKupovinu")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult GetKupovina()
+        {
+            try
+            {
+                return new JsonResult(DataProvider.VratiKupovine());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPut]
+        [Route("PromeniKupovinu")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AzurirajKupovine([FromBody] KupovinaView kupovina)
+        {
+            try
+            {
+                DataProvider.AzurirajKupovine(kupovina);
+                return Ok();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
 
         [HttpDelete]
         [Route("IzbrisiKupovinu/{id}")]
