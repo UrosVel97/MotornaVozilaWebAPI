@@ -1193,5 +1193,112 @@ namespace MotornaVozilaLibrary
 
         #endregion
 
+        #region Kupac
+
+        #region PravnoLice
+
+        public static List<KupacPravnoLiceView> VratiPravnoLice()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<KupacPravnoLiceView> kupac = new List<KupacPravnoLiceView>();
+
+                IList<PravnoLice> pl = s.QueryOver<PravnoLice>()
+                                                        .List<PravnoLice>();
+
+                foreach (PravnoLice p in pl)
+                {
+                    kupac.Add(new KupacPravnoLiceView(p));
+                }
+
+                s.Close();
+
+                return kupac;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region FizickoLice
+
+        public static List<KupacFizickoLiceView> VratiFizickoLice()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<KupacFizickoLiceView> kupac = new List<KupacFizickoLiceView>();
+
+                IList<FizickoLice> fl = s.QueryOver<FizickoLice>()
+                                                        .List<FizickoLice>();
+
+                foreach (FizickoLice f in fl)
+                {
+                    kupac.Add(new KupacFizickoLiceView(f));
+                }
+
+                s.Close();
+
+                return kupac;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        public static List<KupacView> VratiKupce()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<KupacView> kupac = new List<KupacView>();
+
+                IList<Kupac> ku = s.QueryOver<Kupac>()
+                                         .List<Kupac>();
+
+                foreach (Kupac k in ku)
+                {
+                    kupac.Add(new KupacView(k));
+                }
+
+                s.Close();
+
+                return kupac;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static void AzurirajKupce(KupacView kupac)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                Kupac k = s.Load<Kupac>(kupac.Id);
+
+                k.LicnoIme = kupac.LicnoIme;
+                k.Prezime = kupac.Prezime;
+
+                s.SaveOrUpdate(k);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
     }
 }
