@@ -20,6 +20,7 @@ namespace MotornaVozilaLibrary.DTOs
 
         public KupovinaView(Kupovina k)
         {
+            Id = k.Id;
             Vozila = new List<VoziloKojeJeProdatoView>();
             KupljenoUSalonu = new NESalon(k.IdSalona);
             Kupac = new KupovinaKupacView(k.IdKupca);

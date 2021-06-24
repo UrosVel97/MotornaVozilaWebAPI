@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI.csproj": {}
+    "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj": {
+    "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj",
         "projectName": "MotornaVozilaLibrary",
-        "projectPath": "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj",
-        "packagesPath": "C:\\Users\\dimci\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaLibrary\\obj\\",
+        "projectPath": "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj",
+        "packagesPath": "C:\\Users\\Uros\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaLibrary\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\dimci\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Uros\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,21 +67,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI.csproj": {
+    "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI.csproj",
         "projectName": "MotornaVozilaWebAPI",
-        "projectPath": "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI.csproj",
-        "packagesPath": "C:\\Users\\dimci\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI\\obj\\",
+        "projectPath": "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaWebAPI\\MotornaVozilaWebAPI.csproj",
+        "packagesPath": "C:\\Users\\Uros\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaWebAPI\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\dimci\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Uros\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -92,8 +98,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj": {
-                "projectPath": "C:\\Users\\dimci\\Desktop\\WebApi\\MotornaVozilaWebAPI\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj"
+              "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj": {
+                "projectPath": "C:\\Users\\Uros\\Desktop\\MotornaVozilaWebApi_Reporzitorijum\\MotornaVozilaLibrary\\MotornaVozilaLibrary.csproj"
               }
             }
           }
@@ -125,7 +131,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
