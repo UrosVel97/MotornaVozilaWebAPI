@@ -13,22 +13,6 @@ namespace MotornaVozilaWebAPI.Controllers
     [Route("[controller]")]
     public class KupacController : ControllerBase
     {
-        [HttpDelete]
-        [Route("IzbrisiKupca/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult DeleteKupac(int id)
-        {
-            try
-            {
-                DataProvider.IzbrisiKupca(id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.ToString());
-            }
-        }
 
         #region PravnoLice
 
@@ -94,6 +78,23 @@ namespace MotornaVozilaWebAPI.Controllers
                 DataProvider.AzurirajKupce(kupac);
                 return Ok();
 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        [Route("IzbrisiKupca/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteKupac(int id)
+        {
+            try
+            {
+                DataProvider.IzbrisiKupca(id);
+                return Ok();
             }
             catch (Exception ex)
             {
