@@ -7,6 +7,7 @@ namespace MotornaVozilaLibrary.DTOs
 {
     public class KupovinaKupacView
     {
+        public int Id { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
 
@@ -19,6 +20,7 @@ namespace MotornaVozilaLibrary.DTOs
 
         public KupovinaKupacView(Kupac k)
         {
+            Id = k.Id;
             BrojeviTelefona = new List<string>();
             Ime = k.LicnoIme;
             Prezime = k.Prezime;

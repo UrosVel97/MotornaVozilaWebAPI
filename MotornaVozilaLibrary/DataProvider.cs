@@ -39,7 +39,6 @@ namespace MotornaVozilaLibrary
             }
         }
 
-
         public static void DodajNEkonomistu(NezavisniEkonomistaView n)
         {
             try
@@ -1191,7 +1190,134 @@ namespace MotornaVozilaLibrary
             }
         }
 
+
+
+        public static void DodajKupovinu(KupovinaAddView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                Kupovina k = new Kupovina();
+                k.DatumKupovine = r.DatumKupovine;
+                Kupac kupac = s.Load<Kupac>(r.IdKupca);
+                k.IdKupca = kupac;
+                kupac.Kupovine.Add(k);
+                Salon salon = s.Load<Salon>(r.IdSalona);
+                k.IdSalona = salon;
+                salon.Kupovine.Add(k);
+
+                s.Save(k);
+                s.Save(kupac);
+                s.Save(salon);
+                s.Flush();
+
+
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
+
+
+
         #endregion
+
+
+        public static void IzbrisiKupca(int id)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                Kupac k = s.Load<Kupac>(id);
+
+                //Brisanje telefona kupca
+                IList<TelefonKupac> telefoni = k.Telefoni;
+                k.Telefoni = new List<TelefonKupac>();
+                foreach(TelefonKupac t in telefoni)
+                {
+                    s.Delete(t);
+                    s.Flush();
+                }
+
+                s.SaveOrUpdate(k);
+                s.Flush();
+
+                //Brisanje kupovina
+                IList<Kupovina> kupovine = k.Kupovine;
+                k.Kupovine = new List<Kupovina>();
+                foreach(Kupovina kupovina in kupovine)
+                {
+                    Salon salon = s.Load<Salon>(kupovina.IdSalona.Id);
+                    Kupac kupac = s.Load<Kupac>(kupovina.IdKupca.Id);
+
+                    salon.Kupovine.Remove(kupovina);
+                    kupac.Kupovine.Remove(kupovina);
+                    s.SaveOrUpdate(salon);
+                    s.SaveOrUpdate(kupac);
+
+                    s.Flush();
+                    IList<VoziloKojeJeProdato> vozila = kupovina.ProdataVozila;
+                    kupovina.ProdataVozila = new List<VoziloKojeJeProdato>();
+
+
+                    foreach (VoziloKojeJeProdato vkp in vozila)
+                    {
+                        RadnikTehnickeStruke rts = s.Load<RadnikTehnickeStruke>(vkp.RadnikTehnStruke.Jmbg);
+                        rts.UvezenaVozila.Remove(vkp);
+                        s.SaveOrUpdate(rts);
+                        s.Flush();
+                        s.Delete(vkp);
+                        s.Flush();
+                    }
+
+                    s.Delete(kupovina);
+                    s.Flush();
+                }
+
+                s.SaveOrUpdate(k);
+                s.Flush();
+
+                //Brisanje registrovanih kupaca
+                IList<RegistrovaniKupac> vlasnici = k.RegistrovaniKupci;
+                k.RegistrovaniKupci = new List<RegistrovaniKupac>();
+                foreach(RegistrovaniKupac r in vlasnici)
+                {
+                    RegistrovaniKupac n = s.Load<RegistrovaniKupac>(r.Id);
+
+                    IList<VozilaPrimljenaNaServis> vozila = n.JePoslaoVoziloNaServis;
+                    n.JePoslaoVoziloNaServis = new List<VozilaPrimljenaNaServis>();
+
+                    foreach (VozilaPrimljenaNaServis v in vozila)
+                    {
+                        v.Zaposleni.PrimioVoziloNaServis.Remove(v);
+                        s.SaveOrUpdate(v.Zaposleni);
+                        s.Delete(v);
+                        s.Flush();
+                    }
+
+                    n.Kupac.RegistrovaniKupci.Remove(n);
+                    s.SaveOrUpdate(n.Kupac);
+
+                    s.Delete(n);
+                    s.Flush();
+                }
+
+                s.SaveOrUpdate(k);
+                s.Delete(k);
+                s.Flush();
+
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
 
         #region Kupac
 

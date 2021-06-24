@@ -64,5 +64,22 @@ namespace MotornaVozilaWebAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("DodajKupovinu")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddKupovina([FromBody] KupovinaAddView r)
+        {
+            try
+            {
+                DataProvider.DodajKupovinu(r);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
     }
 }
