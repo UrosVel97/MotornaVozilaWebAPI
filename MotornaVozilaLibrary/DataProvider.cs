@@ -1223,7 +1223,6 @@ namespace MotornaVozilaLibrary
         #region Kupac
 
         #region PravnoLice
-
         public static List<KupacPravnoLiceView> VratiPravnoLice()
         {
             try
@@ -1249,10 +1248,42 @@ namespace MotornaVozilaLibrary
             }
         }
 
+        public static void DodajPravnoLice(KupacPravnoLiceView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                PravnoLice p = new PravnoLice();
+                p.LicnoIme = r.LicnoIme;
+                p.Prezime = r.Prezime;
+                p.Pib = r.Pib;
+
+                s.Save(p);
+                s.Flush();
+
+                foreach(string t in r.Telefoni)
+                {
+                    TelefonKupac tel = new TelefonKupac();
+                    tel.Telefon = t;
+                    tel.Kupac = p;
+                    p.Telefoni.Add(tel);
+                    s.Save(tel);
+                    s.Save(p);
+                    s.Flush();
+                }
+
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
+
         #endregion
 
         #region FizickoLice
-
         public static List<KupacFizickoLiceView> VratiFizickoLice()
         {
             try

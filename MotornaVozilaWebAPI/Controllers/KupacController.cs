@@ -15,7 +15,6 @@ namespace MotornaVozilaWebAPI.Controllers
     {
 
         #region PravnoLice
-
         [HttpGet]
         [Route("VratiPravnoLice")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -24,6 +23,23 @@ namespace MotornaVozilaWebAPI.Controllers
             try
             {
                 return new JsonResult(DataProvider.VratiPravnoLice());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpPost]
+        [Route("DodajPravnoLice")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddPravnoLice([FromBody] KupacPravnoLiceView r)
+        {
+            try
+            {
+                DataProvider.DodajPravnoLice(r);
+                return Ok();
             }
             catch (Exception ex)
             {
@@ -50,7 +66,27 @@ namespace MotornaVozilaWebAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("DodajFizickoLice")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddFizickoLice([FromBody] KupacFizickoLiceView r)
+        {
+            try
+            {
+                //TODO
+                //DataProvider.DodajFizickoLice(r);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
         #endregion
+
+
 
         [HttpGet]
         [Route("VratiKupce")]
@@ -101,5 +137,6 @@ namespace MotornaVozilaWebAPI.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+ 
     }
 }
