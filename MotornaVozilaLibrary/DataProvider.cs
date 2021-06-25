@@ -1485,5 +1485,112 @@ namespace MotornaVozilaLibrary
 
         #endregion
 
+        #region Vlasnik
+
+        #region NeregistrovaniKupac
+
+        public static List<VlasnikNeregistrovaniKupacView> VratiNeregistrovaneKupce()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<VlasnikNeregistrovaniKupacView> vlasnik = new List<VlasnikNeregistrovaniKupacView>();
+
+                IList<NeregistrovaniKupac> nk = s.QueryOver<NeregistrovaniKupac>()
+                                         .List<NeregistrovaniKupac>();
+
+                foreach (NeregistrovaniKupac n in nk)
+                {
+                    vlasnik.Add(new VlasnikNeregistrovaniKupacView(n));
+                }
+
+                s.Close();
+
+                return vlasnik;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static void AzurirajNeregistrovanogKupca(VlasnikNeregistrovaniKupacView vlasnik)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                NeregistrovaniKupac nk = s.Load<NeregistrovaniKupac>(vlasnik.Id);
+
+                nk.Ime = vlasnik.Ime;
+                nk.Prezime = vlasnik.Prezime;
+
+                s.SaveOrUpdate(nk);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        #region RegistrovaniKupac
+
+        public static List<VlasnikRegistrovaniKupacView> VratiRegistrovaneKupce()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<VlasnikRegistrovaniKupacView> vlasnik = new List<VlasnikRegistrovaniKupacView>();
+
+                IList<RegistrovaniKupac> rk = s.QueryOver<RegistrovaniKupac>()
+                                         .List<RegistrovaniKupac>();
+
+                foreach (RegistrovaniKupac n in rk)
+                {
+                    vlasnik.Add(new VlasnikRegistrovaniKupacView(n));
+                }
+
+                s.Close();
+
+                return vlasnik;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+        public static List<VlasnikView> VratiVlasnike()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<VlasnikView> kupac = new List<VlasnikView>();
+
+                IList<Vlasnik> vlasnik = s.QueryOver<Vlasnik>()
+                                         .List<Vlasnik>();
+
+                foreach (Vlasnik v in vlasnik)
+                {
+                    kupac.Add(new VlasnikView(v));
+                }
+
+                s.Close();
+
+                return kupac;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
     }
 }

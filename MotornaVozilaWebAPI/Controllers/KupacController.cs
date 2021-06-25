@@ -86,8 +86,6 @@ namespace MotornaVozilaWebAPI.Controllers
 
         #endregion
 
-
-
         [HttpGet]
         [Route("VratiKupce")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
