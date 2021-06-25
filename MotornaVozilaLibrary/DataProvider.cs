@@ -1309,6 +1309,41 @@ namespace MotornaVozilaLibrary
             }
         }
 
+
+
+        public static void DodajFizickoLice(KupacFizickoLiceView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                FizickoLice p = new FizickoLice();
+                p.LicnoIme = r.LicnoIme;
+                p.Prezime = r.Prezime;
+                p.Jmbg = r.Jmbg;
+
+                s.Save(p);
+                s.Flush();
+
+                foreach (string t in r.Telefoni)
+                {
+                    TelefonKupac tel = new TelefonKupac();
+                    tel.Telefon = t;
+                    tel.Kupac = p;
+                    p.Telefoni.Add(tel);
+                    s.Save(tel);
+                    s.Save(p);
+                    s.Flush();
+                }
+
+
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
         #endregion
 
         public static List<KupacView> VratiKupce()

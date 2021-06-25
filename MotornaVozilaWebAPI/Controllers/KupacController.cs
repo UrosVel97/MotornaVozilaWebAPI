@@ -74,8 +74,8 @@ namespace MotornaVozilaWebAPI.Controllers
         {
             try
             {
-                //TODO
-                //DataProvider.DodajFizickoLice(r);
+
+                DataProvider.DodajFizickoLice(r);
                 return Ok();
             }
             catch (Exception ex)
