@@ -28,6 +28,8 @@ namespace MotornaVozilaWebAPI.Controllers
             }
         }
 
+        #region NeregistrovaniKupac
+
         [HttpGet]
         [Route("VratiNeregistrovaneKupce")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -59,7 +61,26 @@ namespace MotornaVozilaWebAPI.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+        [HttpPost]
+        [Route("DodajNeregistrovanogKupca")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddNeregistrovanogKupca([FromBody] VlasnikNeregistrovaniKupacAddView r)
+        {
+            try
+            {
+                DataProvider.DodajNeregistrovanogKupca(r);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
 
+        #endregion
+
+        #region RegistrovaniKupac
         [HttpGet]
         [Route("VratiRegistrovaneKupce")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -74,5 +95,27 @@ namespace MotornaVozilaWebAPI.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
+        [HttpPost]
+        [Route("DodajRegistrovanogKupca")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult AddRegistrovanogKupca([FromBody] VlasnikRegistrovaniKupacAddView r)
+        {
+            try
+            {
+                DataProvider.DodajRegistrovanogKupca(r);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+        #endregion
+
+
+
+
     }
 }

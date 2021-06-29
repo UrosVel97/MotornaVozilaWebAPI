@@ -1532,7 +1532,43 @@ namespace MotornaVozilaLibrary
             {
                 throw;
             }
+
         }
+
+
+        public static void DodajNeregistrovanogKupca(VlasnikNeregistrovaniKupacAddView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                NeregistrovaniKupac n = new NeregistrovaniKupac();
+                n.Ime = r.Ime;
+                n.Prezime = r.Prezime;
+
+                s.Save(n);
+                s.Flush();
+
+                foreach(string tel in r.Telefoni)
+                {
+                    TelefonNeregistrovaniKupac t = new TelefonNeregistrovaniKupac();
+                    t.BrojTelefona = tel;
+                    t.NeregistrovaniKupac = n;
+                    n.Telefoni.Add(t);
+                    s.Save(t);
+                    s.Save(n);
+                    s.Flush();
+                }
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+            
+        }
+
 
         #endregion
 
@@ -1562,6 +1598,29 @@ namespace MotornaVozilaLibrary
                 throw;
             }
         }
+
+
+        public static void DodajRegistrovanogKupca(VlasnikRegistrovaniKupacAddView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                RegistrovaniKupac k = new RegistrovaniKupac();
+                k.Kupac = s.Load<Kupac>(r.Id);
+                k.Kupac.RegistrovaniKupci.Add(k);
+                s.Save(k);
+                s.Save(k.Kupac);
+                s.Flush();
+
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
+
 
         #endregion
 
