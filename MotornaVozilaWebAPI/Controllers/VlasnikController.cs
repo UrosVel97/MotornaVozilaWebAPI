@@ -78,6 +78,24 @@ namespace MotornaVozilaWebAPI.Controllers
             }
         }
 
+
+        [HttpDelete]
+        [Route("IzbrisiNeregistrovanogKupca/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteNeregistrovaniKupac(int id)
+        {
+            try
+            {
+                DataProvider.IzbrisiNeregistrovanogKupca(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
         #endregion
 
         #region RegistrovaniKupac
@@ -105,6 +123,23 @@ namespace MotornaVozilaWebAPI.Controllers
             try
             {
                 DataProvider.DodajRegistrovanogKupca(r);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
+
+        [HttpDelete]
+        [Route("IzbrisiRegistrovanogKupca/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteRegistrovaniKupac(int id)
+        {
+            try
+            {
+                DataProvider.IzbrisiRegistrovanogKupca(id);
                 return Ok();
             }
             catch (Exception ex)
