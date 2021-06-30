@@ -1261,7 +1261,7 @@ namespace MotornaVozilaLibrary
                 s.Save(p);
                 s.Flush();
 
-                foreach(string t in r.Telefoni)
+                foreach (string t in r.Telefoni)
                 {
                     TelefonKupac tel = new TelefonKupac();
                     tel.Telefon = t;
@@ -1275,7 +1275,7 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
@@ -1548,7 +1548,7 @@ namespace MotornaVozilaLibrary
                 s.Save(n);
                 s.Flush();
 
-                foreach(string tel in r.Telefoni)
+                foreach (string tel in r.Telefoni)
                 {
                     TelefonNeregistrovaniKupac t = new TelefonNeregistrovaniKupac();
                     t.BrojTelefona = tel;
@@ -1561,11 +1561,11 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
-            
+
         }
 
         public static void IzbrisiNeregistrovanogKupca(int id)
@@ -1654,7 +1654,7 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
@@ -1742,7 +1742,9 @@ namespace MotornaVozilaLibrary
 
                 foreach (VozilaPrimljenaNaServis v in vozila)
                 {
-                    vozilaPrimljena.Add(new VozilaPrimljenaNaServisView(v));
+
+                    vozilaPrimljena.Add(new VozilaPrimljenaNaServisView(v, s));
+
                 }
 
                 s.Close();
@@ -1807,7 +1809,7 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }
@@ -1834,7 +1836,7 @@ namespace MotornaVozilaLibrary
 
                 s.Close();
             }
-            catch(Exception ec)
+            catch (Exception ec)
             {
                 throw;
             }

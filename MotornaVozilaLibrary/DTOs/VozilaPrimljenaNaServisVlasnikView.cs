@@ -1,4 +1,5 @@
 ﻿using MotornaVozila.Entiteti;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,6 +8,7 @@ namespace MotornaVozilaLibrary.DTOs
 {
     public class VozilaPrimljenaNaServisVlasnikView
     {
+        public int Id { get; set; }
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public IList<string> Telefoni { get; set; }
@@ -16,12 +18,14 @@ namespace MotornaVozilaLibrary.DTOs
             Telefoni = new List<string>();
         }
 
-        public VozilaPrimljenaNaServisVlasnikView(Vlasnik v)
+        public VozilaPrimljenaNaServisVlasnikView(Vlasnik v1, ISession s,bool t1)
         {
+
             Telefoni = new List<string>();
-            if(v.GetType()==typeof(NeregistrovaniKupac))
+            if(t1)
             {
-                NeregistrovaniKupac n = (NeregistrovaniKupac)v;
+                NeregistrovaniKupac n = s.Load<NeregistrovaniKupac>(v1.Id);
+                Id = n.Id;
                 Ime = n.Ime;
                 Prezime = n.Prezime;
 
@@ -30,12 +34,12 @@ namespace MotornaVozilaLibrary.DTOs
                     Telefoni.Add(t.BrojTelefona);
                 }
             }
-            else if (v.GetType() == typeof(RegistrovaniKupac))
+            else
             {
-                RegistrovaniKupac n = (RegistrovaniKupac)v;
+                RegistrovaniKupac n = s.Load<RegistrovaniKupac>(v1.Id);
                 Ime =n.Kupac.LicnoIme;
                 Prezime = n.Kupac.Prezime;
-
+                Id = n.Id;
                 foreach (TelefonKupac t in n.Kupac.Telefoni)
                 {
                     Telefoni.Add(t.Telefon);
