@@ -7,7 +7,6 @@ namespace MotornaVozilaLibrary.DTOs
 {
     public class VozilaPrimljenaNaServisView
     {
-
         public int RegistarskiBroj { get; set; }
         public string Model { get; set; }
         public string OpisProblema { get; set; }

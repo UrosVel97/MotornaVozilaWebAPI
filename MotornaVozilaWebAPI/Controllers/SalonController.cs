@@ -44,6 +44,7 @@ namespace MotornaVozilaWebAPI.Controllers
                 return BadRequest(ex.ToString());
             }
         }
+
         [HttpPost]
         [Route("DodajSalon")]
         [ProducesResponseType(StatusCodes.Status200OK)]
