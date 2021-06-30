@@ -1729,6 +1729,54 @@ namespace MotornaVozilaLibrary
 
         #region VozilaPrimljenaNaServis
 
+
+        public static List<VozilaPrimljenaNaServisView> VratiVozilaPrimljenaNaSerivs()
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                List<VozilaPrimljenaNaServisView> vozilaPrimljena = new List<VozilaPrimljenaNaServisView>();
+
+                IList<VozilaPrimljenaNaServis> vozila = s.QueryOver<VozilaPrimljenaNaServis>()
+                                         .List<VozilaPrimljenaNaServis>();
+
+                foreach (VozilaPrimljenaNaServis v in vozila)
+                {
+                    vozilaPrimljena.Add(new VozilaPrimljenaNaServisView(v));
+                }
+
+                s.Close();
+
+                return vozilaPrimljena;
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+        }
+
+        public static void AzurirajVozilaPrimljenaNaServis(VozilaPrimljenaNaServisView vozila)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                VozilaPrimljenaNaServis vp = s.Load<VozilaPrimljenaNaServis>(vozila.RegistarskiBroj);
+
+                vp.ModelVozila = vozila.Model;
+                vp.GodinaProizvodnje = vozila.GodinaProizvodnje;
+                vp.OpisProblema = vozila.OpisProblema;
+
+                s.SaveOrUpdate(vp);
+                s.Flush();
+                s.Close();
+            }
+            catch (Exception ec)
+            {
+                throw;
+            }
+
+        }
+
         public static void DodajVoziloNaServis(VoziloPrimljenoNaServisAddView r)
         {
             try
@@ -1796,52 +1844,7 @@ namespace MotornaVozilaLibrary
         #endregion
 
 
-        public static List<VozilaPrimljenaNaServisView> VratiVozilaPrimljenaNaSerivs()
-        {
-            try
-            {
-                ISession s = DataLayer.GetSession();
-                List<VozilaPrimljenaNaServisView> vozilaPrimljena = new List<VozilaPrimljenaNaServisView>();
 
-                IList<VozilaPrimljenaNaServis> vozila = s.QueryOver<VozilaPrimljenaNaServis>()
-                                         .List<VozilaPrimljenaNaServis>();
-
-                foreach (VozilaPrimljenaNaServis v in vozila)
-                {
-                    vozilaPrimljena.Add(new VozilaPrimljenaNaServisView(v));
-                }
-
-                s.Close();
-
-                return vozilaPrimljena;
-            }
-            catch (Exception ec)
-            {
-                throw;
-            }
-        }
-
-        public static void AzurirajVozilaPrimljenaNaServis(VozilaPrimljenaNaServisView vozila)
-        {
-            try
-            {
-                ISession s = DataLayer.GetSession();
-                VozilaPrimljenaNaServis vp = s.Load<VozilaPrimljenaNaServis>(vozila.RegistarskiBroj);
-
-                vp.ModelVozila = vozila.Model;
-                vp.GodinaProizvodnje = vozila.GodinaProizvodnje;
-                vp.OpisProblema = vozila.OpisProblema;
-
-                s.SaveOrUpdate(vp);
-                s.Flush();
-                s.Close();
-            }
-            catch (Exception ec)
-            {
-                throw;
-            }
-
-        }
 
     }
 }
