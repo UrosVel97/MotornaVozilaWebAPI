@@ -1728,5 +1728,72 @@ namespace MotornaVozilaLibrary
 
         #endregion
 
+        #region VozilaPrimljenaNaServis
+
+        public static void DodajVoziloNaServis(VoziloPrimljenoNaServisAddView r)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+
+                VozilaPrimljenaNaServis v = new VozilaPrimljenaNaServis();
+                v.ModelVozila = r.Model;
+                v.OpisProblema = r.OpisProblema;
+                v.GodinaProizvodnje = r.GodinaProizvodnje;
+                v.DatumPrijema = r.DatumPrijema;
+                v.DatumZavrsetkaRadova = r.DatumZavrsetkaRadova;
+
+                Zaposleni z = s.Load<Zaposleni>(r.JmbgZaposleni);
+                Vlasnik vlasnik = s.Load<Vlasnik>(r.IdVlasnika);
+
+                v.Zaposleni = z;
+                z.PrimioVoziloNaServis.Add(v);
+
+                v.Vlasnik = vlasnik;
+                vlasnik.JePoslaoVoziloNaServis.Add(v);
+
+                s.Save(v);
+                s.Save(z);
+                s.Save(vlasnik);
+                s.Flush();
+
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
+
+
+
+        public static void IzbrisiVoziloSaServisa(int id)
+        {
+            try
+            {
+                ISession s = DataLayer.GetSession();
+                VozilaPrimljenaNaServis v = s.Load<VozilaPrimljenaNaServis>(id);
+
+                v.Vlasnik.JePoslaoVoziloNaServis.Remove(v);
+                s.SaveOrUpdate(v.Vlasnik);
+                s.Flush();
+                v.Zaposleni.PrimioVoziloNaServis.Remove(v);
+                s.SaveOrUpdate(v.Zaposleni);
+                s.Flush();
+                s.Delete(v);
+                s.Flush();
+
+
+                s.Close();
+            }
+            catch(Exception ec)
+            {
+                throw;
+            }
+        }
+
+
+        #endregion
     }
 }
